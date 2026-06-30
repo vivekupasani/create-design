@@ -162,6 +162,7 @@ function Index() {
         <div className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-linear-to-r from-white to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-linear-to-l from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-linear-to-t from-white to-transparent" />
           <div className="flex w-max animate-[marquee_40s_linear_infinite] gap-4">
             {marqueeImages.map((src, i) => (
               <div key={i} className="h-44 w-64 shrink-0 overflow-hidden rounded-2xl bg-neutral-100 sm:h-56 sm:w-80 md:h-64 md:w-96">
@@ -169,13 +170,13 @@ function Index() {
               </div>
             ))}
           </div>
-          {/* <div className="flex w-max animate-[marquee_40s_linear_infinite_reverse] gap-4 mt-6">
+          <div className="flex w-max animate-[marquee_40s_linear_infinite_reverse] gap-4 mt-6">
             {marqueeImages.map((src, i) => (
               <div key={i} className="h-44 w-64 shrink-0 overflow-hidden rounded-2xl bg-neutral-100 sm:h-56 sm:w-80 md:h-64 md:w-96">
                 <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
         <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
       </section>
