@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { inject } from "@vercel/analytics"
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -117,6 +118,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  inject()
+
   return (
     <html lang="en">
       <head>
@@ -155,7 +158,7 @@ function RootComponent() {
       const target = e.target as HTMLElement;
       const anchor = target.closest("a");
       if (!anchor) return;
-      
+
       const href = anchor.getAttribute("href");
       if (href && href.startsWith("#")) {
         e.preventDefault();
