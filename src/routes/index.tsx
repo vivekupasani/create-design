@@ -129,7 +129,15 @@ function Index() {
                   {["Features", "Showcase", "Pricing", "FAQ"].map((l) => (
                     <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100">{l}</a>
                   ))}
-                  <button className="mt-1 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white">Get started</button>
+                  <button 
+                    onClick={() => {
+                      setMenuOpen(false);
+                      navigate({ to: "/waitlist" });
+                    }} 
+                    className="mt-1 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white cursor-pointer"
+                  >
+                    Join the waitlist
+                  </button>
                 </div>
               </motion.div>
             )}

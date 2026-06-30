@@ -1,6 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { createServerFn } from "@tanstack/react-start";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 import computerJungle from "@/assets/computer-jungle.png";
+import { setWaitlistEntry } from "@/lib/redis";
+
+type WaitlistEntry = { name: string; email: string; phone: string };
+
+export const submitWaitlist = createServerFn({ method: "POST" })
+  .validator((data: WaitlistEntry) => data)
+  .handler(async ({ data }) => {
+    await setWaitlistEntry(data)
+  });
 
 export const Route = createFileRoute("/waitlist")({
   head: () => ({
@@ -13,6 +24,18 @@ export const Route = createFileRoute("/waitlist")({
 });
 
 function Waitlist() {
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    await submitWaitlist({ data: formData });
+    setSubmitted(true);
+    setLoading(false);
+  };
+
   return (
     <div className="flex min-h-screen bg-white">
       {/* Left Column: Form */}
@@ -32,51 +55,68 @@ function Waitlist() {
             Be the first to know when we launch and get early access.
           </p>
 
-          <form className="mt-10 space-y-4" onSubmit={(e) => e.preventDefault()}>
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium text-neutral-700">
-                Full Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="John Doe"
-                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                required
-              />
+          {submitted ? (
+            <div className="mt-10 flex flex-col items-center justify-center space-y-4 rounded-2xl border border-green-100 bg-green-50 p-8 text-center">
+              <CheckCircle2 className="h-12 w-12 text-green-600" />
+              <h2 className="text-xl font-medium text-green-900">You're on the list!</h2>
+              <p className="text-sm text-green-700">
+                Thanks for joining. We'll be in touch soon.
+              </p>
             </div>
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-neutral-700">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="phone" className="text-sm font-medium text-neutral-700">
-                Phone Number
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                placeholder="+1 (555) 000-0000"
-                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                required
-              />
-            </div>
+          ) : (
+            <form className="mt-10 space-y-4" onSubmit={handleSubmit}>
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium text-neutral-700">
+                  Full Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="John Doe"
+                  className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium text-neutral-700">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="phone" className="text-sm font-medium text-neutral-700">
+                  Phone Number
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="+1 (555) 000-0000"
+                  className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#333333] px-4 py-3.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2"
-            >
-              Join waitlist <ArrowRight className="h-4 w-4" />
-            </button>
-          </form>
+              <button
+                type="submit"
+                disabled={loading}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#333333] px-4 py-3.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 disabled:opacity-70"
+              >
+                {loading ? "Joining..." : "Join waitlist"} {!loading && <ArrowRight className="h-4 w-4" />}
+              </button>
+            </form>
+          )}
 
           <p className="mt-8 text-center text-xs text-neutral-500">
             By joining, you agree to our{" "}
