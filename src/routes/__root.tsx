@@ -88,11 +88,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Describe what you want and we handle the rest. Modern designs in minutes — no design team required." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "" },
+      { name: "twitter:site", content: "@createdesign" },
       { name: "twitter:title", content: "create.design - AI Design Generator" },
       { name: "twitter:description", content: "Describe what you want and we handle the rest. Modern designs in minutes — no design team required." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/63cb8766-0cc7-4b44-9bb8-d15e9a88c442/id-preview-6571276d--78651439-3db1-4499-8d4a-37dc425abda1.lovable.app-1782817774574.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/63cb8766-0cc7-4b44-9bb8-d15e9a88c442/id-preview-6571276d--78651439-3db1-4499-8d4a-37dc425abda1.lovable.app-1782817774574.png" },
+      { property: "og:image", content: "/assets/opengraph-image.png" },
+      { name: "twitter:image", content: "/assets/opengraph-image.png" },
     ],
     links: [
       {
