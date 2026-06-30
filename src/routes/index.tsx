@@ -88,7 +88,7 @@ function Index() {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <img src={heroMeadow} alt="" width={1920} height={1024} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white" />
+        <div className="absolute inset-0 bg-linear-to-b from-white/0 via-white/0 to-white" />
 
         {/* Nav */}
         <div className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center w-full pt-4 sm:pt-6 px-4 sm:px-6">
@@ -112,14 +112,24 @@ function Index() {
               </button>
             </div>
           </header>
-          {menuOpen && (
-            <div className="w-full max-w-6xl mt-2 rounded-2xl border border-white/60 bg-white/90 p-3 shadow-lg backdrop-blur-md md:hidden">
-              {["Features", "Showcase", "Pricing", "FAQ"].map((l) => (
-                <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100">{l}</a>
-              ))}
-              <button className="mt-1 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white">Get started</button>
-            </div>
-          )}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className="w-full max-w-6xl overflow-hidden md:hidden"
+              >
+                <div className="mt-2 rounded-2xl border border-white/60 bg-white/90 p-3 shadow-lg backdrop-blur-md">
+                  {["Features", "Showcase", "Pricing", "FAQ"].map((l) => (
+                    <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100">{l}</a>
+                  ))}
+                  <button className="mt-1 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white">Get started</button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Hero content */}
@@ -138,8 +148,8 @@ function Index() {
       <section className="-mt-48 relative z-10">
         <p className="mb-6 text-center text-sm text-neutral-500">See what people are building</p>
         <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-linear-to-r from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-linear-to-l from-white to-transparent" />
           <div className="flex w-max animate-[marquee_40s_linear_infinite] gap-4">
             {marqueeImages.map((src, i) => (
               <div key={i} className="h-44 w-64 shrink-0 overflow-hidden rounded-2xl bg-neutral-100 sm:h-56 sm:w-80 md:h-64 md:w-96">
@@ -298,7 +308,11 @@ function Index() {
       {/* CTA sky */}
       <section className="relative overflow-hidden">
         <img src={ctaSky} alt="" width={1920} height={800} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="relative z-10 mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-32">
+        {/* Fade gradients */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-white to-transparent sm:h-48" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-t from-white to-transparent sm:h-48" />
+        
+        <div className="relative z-20 mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-32">
           <h2 className="font-display text-4xl text-white drop-shadow-sm sm:text-5xl md:text-6xl">Make anything you imagine</h2>
           <div className="mt-8">
             <PromptInput placeholder="Describe what you want to build…" variant="solid" />
@@ -313,8 +327,8 @@ function Index() {
           <p className="mx-auto mt-4 max-w-md text-sm text-neutral-600">From the first prompt to the final pixel. Real designs from real people using Create.Design.</p>
         </div>
         <div className="mt-12 relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-linear-to-r from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-linear-to-l from-white to-transparent" />
           <div className="flex w-max animate-[marquee_40s_linear_infinite] gap-4">
             {marqueeImages.map((src, i) => (
               <div key={i} className="h-44 w-64 shrink-0 overflow-hidden rounded-2xl bg-neutral-100 sm:h-56 sm:w-80 md:h-64 md:w-96">
