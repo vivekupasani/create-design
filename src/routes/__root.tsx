@@ -91,8 +91,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@createdesign" },
       { name: "twitter:title", content: "create.design - AI Design Generator" },
       { name: "twitter:description", content: "Describe what you want and we handle the rest. Modern designs in minutes — no design team required." },
-      { property: "og:image", content: "/assets/opengraph-image.png" },
-      { name: "twitter:image", content: "/assets/opengraph-image.png" },
+      { property: "og:image", content: "/opengraph-image.png" },
+      { name: "twitter:image", content: "/opengraph-image.png" },
     ],
     links: [
       {
