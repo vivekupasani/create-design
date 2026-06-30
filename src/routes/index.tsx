@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "create.design - AI Design Generator" },
       { name: "description", content: "Describe what you want and Create.Design handles the rest. Modern designs in minutes — no design team required." },
-            
+
       { property: "og:title", content: "Create.Design — AI design platform" },
       { property: "og:description", content: "Describe what you want and Create.Design handles the rest." },
     ],
@@ -129,11 +129,11 @@ function Index() {
                   {["Features", "Showcase", "Pricing", "FAQ"].map((l) => (
                     <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100">{l}</a>
                   ))}
-                  <button 
+                  <button
                     onClick={() => {
                       setMenuOpen(false);
                       navigate({ to: "/waitlist" });
-                    }} 
+                    }}
                     className="mt-1 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white cursor-pointer"
                   >
                     Join the waitlist
@@ -145,7 +145,7 @@ function Index() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-10 mx-auto max-w-3xl px-4 pt-32 pb-64 text-center sm:px-6 sm:pt-40 sm:pb-72">
+        <div className="relative z-10 mx-auto max-w-3xl px-4 pt-40 pb-64 text-center sm:px-6 sm:pt-40 sm:pb-72">
           <h1 className="font-display text-5xl leading-[1.05] text-neutral-900 sm:text-6xl md:text-7xl">Create.Design</h1>
           <p className="mx-auto mt-5 max-w-xl text-sm text-neutral-700 sm:text-base">
             Describe what you want and we handle the rest. Modern designs in minutes — no design team required.
@@ -157,7 +157,7 @@ function Index() {
       </section>
 
       {/* MARQUEE */}
-      <section className="-mt-48 relative z-10">
+      <section className="-mt-18 md:-mt-48 relative z-10">
         <p className="mb-6 text-center text-sm text-neutral-500">See what people are building</p>
         <div className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-linear-to-r from-white to-transparent" />
