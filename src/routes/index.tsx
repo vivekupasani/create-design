@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Layout, Sparkles, Megaphone, Search, ArrowUp, Check, Monitor, Menu, X } from "lucide-react";
@@ -14,8 +14,9 @@ import s6 from "@/assets/showcase-6.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Create.Design — AI design platform for everyone" },
+      { title: "create.design - AI Design Generator" },
       { name: "description", content: "Describe what you want and Create.Design handles the rest. Modern designs in minutes — no design team required." },
+            
       { property: "og:title", content: "Create.Design — AI design platform" },
       { property: "og:description", content: "Describe what you want and Create.Design handles the rest." },
     ],
@@ -50,8 +51,8 @@ function PromptInput({ placeholder, variant = "light" }: { placeholder: string; 
   return (
     <div
       className={`mx-auto w-full max-w-2xl rounded-2xl border p-3 shadow-lg backdrop-blur-md ${variant === "solid"
-          ? "border-white/80 bg-white/90"
-          : "border-white/60 bg-white/70"
+        ? "border-white/80 bg-white/90"
+        : "border-white/60 bg-white/70"
         }`}
     >
       <textarea
@@ -82,6 +83,7 @@ function Index() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-white text-neutral-900">
@@ -102,7 +104,9 @@ function Index() {
             </nav>
             <a href="#" className="rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm md:hidden">Create.Design</a>
             <div className="flex items-center gap-2">
-              <button className="hidden rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 sm:inline-flex">Get started</button>
+              <button onClick={() => navigate({
+                to: "/waitlist"
+              })} className="hidden rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 sm:inline-flex cursor-pointer">Join the waitlist</button>
               <button
                 aria-label="Menu"
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -309,9 +313,9 @@ function Index() {
       <section className="relative overflow-hidden">
         <img src={ctaSky} alt="" width={1920} height={800} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
         {/* Fade gradients */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-white to-transparent sm:h-48" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-t from-white to-transparent sm:h-48" />
-        
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-linear-to-b from-white to-transparent sm:h-48" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 bg-linear-to-t from-white to-transparent sm:h-48" />
+
         <div className="relative z-20 mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-32">
           <h2 className="font-display text-4xl text-white drop-shadow-sm sm:text-5xl md:text-6xl">Make anything you imagine</h2>
           <div className="mt-8">
