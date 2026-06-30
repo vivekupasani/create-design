@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Layout, Sparkles, Megaphone, Search, ArrowUp, Check, Monitor, Menu, X } from "lucide-react";
 import heroMeadow from "@/assets/hero-meadow.jpg";
 import ctaSky from "@/assets/cta-sky.jpg";
@@ -90,37 +91,39 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white" />
 
         {/* Nav */}
-        <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-4 pt-4 sm:px-6 sm:pt-6">
-          <nav className="hidden items-center gap-1 rounded-full border border-white/40 bg-white/40 px-2 py-1.5 backdrop-blur-md md:flex">
-            <a href="#" className="rounded-full bg-white px-4 py-1.5 text-sm font-medium">Create.Design</a>
-            <a href="#features" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">Features</a>
-            <a href="#showcase" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">Showcase</a>
-            <a href="#pricing" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">Pricing</a>
-            <a href="#faq" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">FAQ</a>
-          </nav>
-          <a href="#" className="rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm md:hidden">Create.Design</a>
-          <div className="flex items-center gap-2">
-            <button className="hidden rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 sm:inline-flex">Get started</button>
-            <button
-              aria-label="Menu"
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/60 backdrop-blur-md md:hidden"
-            >
-              {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
-          </div>
-        </header>
-        {menuOpen && (
-          <div className="relative z-10 mx-4 mt-2 rounded-2xl border border-white/60 bg-white/90 p-3 shadow-lg backdrop-blur-md md:hidden">
-            {["Features", "Showcase", "Pricing", "FAQ"].map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100">{l}</a>
-            ))}
-            <button className="mt-1 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white">Get started</button>
-          </div>
-        )}
+        <div className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center w-full pt-4 sm:pt-6 px-4 sm:px-6">
+          <header className="flex w-full max-w-6xl items-center justify-between">
+            <nav className="hidden items-center gap-1 rounded-full border border-white/40 bg-white/40 px-2 py-1.5 backdrop-blur-md md:flex">
+              <a href="#" className="rounded-full bg-white px-4 py-1.5 text-sm font-medium">Create.Design</a>
+              <a href="#features" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">Features</a>
+              <a href="#showcase" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">Showcase</a>
+              <a href="#pricing" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">Pricing</a>
+              <a href="#faq" className="px-3 py-1.5 text-sm text-neutral-700 hover:text-neutral-900">FAQ</a>
+            </nav>
+            <a href="#" className="rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm md:hidden">Create.Design</a>
+            <div className="flex items-center gap-2">
+              <button className="hidden rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 sm:inline-flex">Get started</button>
+              <button
+                aria-label="Menu"
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/60 backdrop-blur-md md:hidden"
+              >
+                {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              </button>
+            </div>
+          </header>
+          {menuOpen && (
+            <div className="w-full max-w-6xl mt-2 rounded-2xl border border-white/60 bg-white/90 p-3 shadow-lg backdrop-blur-md md:hidden">
+              {["Features", "Showcase", "Pricing", "FAQ"].map((l) => (
+                <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100">{l}</a>
+              ))}
+              <button className="mt-1 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white">Get started</button>
+            </div>
+          )}
+        </div>
 
         {/* Hero content */}
-        <div className="relative z-10 mx-auto max-w-3xl px-4 pt-16 pb-64 text-center sm:px-6 sm:pt-24 sm:pb-72">
+        <div className="relative z-10 mx-auto max-w-3xl px-4 pt-32 pb-64 text-center sm:px-6 sm:pt-40 sm:pb-72">
           <h1 className="font-display text-5xl leading-[1.05] text-neutral-900 sm:text-6xl md:text-7xl">Create.Design</h1>
           <p className="mx-auto mt-5 max-w-xl text-sm text-neutral-700 sm:text-base">
             Describe what you want and we handle the rest. Modern designs in minutes — no design team required.
@@ -271,9 +274,21 @@ function Index() {
                 className="flex w-full items-center justify-between px-6 py-5 text-left"
               >
                 <span className="text-sm font-medium text-neutral-900">{f.q}</span>
-                <ChevronDown className={`h-4 w-4 text-neutral-500 transition ${openFaq === i ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-4 w-4 text-neutral-500 transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`} />
               </button>
-              {openFaq === i && <p className="px-6 pb-5 text-sm leading-relaxed text-neutral-600">{f.a}</p>}
+              <AnimatePresence>
+                {openFaq === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="px-6 pb-5 text-sm leading-relaxed text-neutral-600">{f.a}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>
